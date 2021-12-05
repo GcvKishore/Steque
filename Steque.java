@@ -30,13 +30,20 @@ import java.util.NoSuchElementException;
  *
  */
 public class Steque<Item> implements Iterable<Item> {
+    private Node First,Last;
+    private int number;
+    private class Node {
+        Item item;
+        Node next;
+    }
 
 
     /**
      * constructs a steque object.
      */
     public Steque() {
-
+        number=0;
+        First=Last=null;
     }
     
     
@@ -44,27 +51,48 @@ public class Steque<Item> implements Iterable<Item> {
      * inserts an item in the steque in queue fashion.
      * @param item Item to be inserted.
      */
+    //Time Complexity:O(1), Space Complexity:O(N)
     public void enqueue(Item item) {
-
+        if(item==null)
+            throw new IllegalArgumentException();
+        Node oldlast=Last;
+        Last=new Node();
+        Last.item=item;
+        Last.next=null;
+        if(First==null)
+            First=Last;
+        else
+            oldlast.next=Last;
+        number++;
     }
-    
-    
+
     /**
      * inserts an item in the steque in stack fashion.
      * @param item Item to be inserted.
-     */
+     */ 
+    //Time Complexity:O(1), Space Complexity:O(N)
     public void push(Item item) {
-
+        if(item==null)
+            throw new IllegalArgumentException();
+        Node oldfirst=First;
+        First=new Node();
+        First.item=item;
+        First.next=oldfirst;
+        if(Last==null)
+            Last=First;
+        number++;
     }
-    
-    /**
-     * pops a least recent item in steque.
-     * @return Item object from steque.
-     */
+
+    //Time Complexity:O(1), Space Complexity:O(N)
     public Item pop() {
-
+        if(isEmpty())
+            throw new NoSuchElementException();
+        Item item=First.item;
+        First=First.next;
+        number--;
+        return item;
     }
-    
+
     /**
      * checks to see if steque is empty.
      * @return true if steque is empty, false otherwise.
