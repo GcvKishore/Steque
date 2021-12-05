@@ -66,20 +66,23 @@ public class Steque<Item> implements Iterable<Item> {
         number++;
     }
 
-    
-    
     /**
      * inserts an item in the steque in stack fashion.
      * @param item Item to be inserted.
-     */
+     */ 
+    //Time Complexity:O(1), Space Complexity:O(N)
     public void push(Item item) {
-
+        if(item==null)
+            throw new IllegalArgumentException();
+        Node oldfirst=First;
+        First=new Node();
+        First.item=item;
+        First.next=oldfirst;
+        if(Last==null)
+            Last=First;
+        number++;
     }
-    
-    /**
-     * pops a least recent item in steque.
-     * @return Item object from steque.
-     */
+
     public Item pop() {
 
     }
