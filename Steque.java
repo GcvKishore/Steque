@@ -83,10 +83,16 @@ public class Steque<Item> implements Iterable<Item> {
         number++;
     }
 
+    //Time Complexity:O(1), Space Complexity:O(N)
     public Item pop() {
-
+        if(isEmpty())
+            throw new NoSuchElementException();
+        Item item=First.item;
+        First=First.next;
+        number--;
+        return item;
     }
-    
+
     /**
      * checks to see if steque is empty.
      * @return true if steque is empty, false otherwise.
