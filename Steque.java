@@ -119,7 +119,47 @@ public class Steque<Item> implements Iterable<Item> {
      * stored in steque.
      * 
      */
+    //time complexity: O(1), space complexity: 0
     public Iterator<Item> iterator() {
+        return new ArrayIterator();
 
     }
+    public class ArrayIterator implements Iterator<Item> {
+        public int i = n-1;
+
+        @Override
+        public boolean hasNext() {
+            return i >= 0;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Item next() {
+            if(!hasNext()) throw new NoSuchElementException();
+            Item item = a[i];
+            i--;
+            return item;
+    }
 }
+    public static void main(String[] args){
+        Steque<Integer> s = new Steque<Integer>();
+        s.enqueue(27);
+        s.enqueue(9);
+        s.enqueue(32);
+        s.push(24);
+        s.push(13);
+        s.push(3);
+        s.enqueue(25);
+        Iterator<Integer> t = s.iterator();
+        System.out.println("Steque elements are: ");
+        while(t.hasNext())
+        System.out.println(t.next());
+        System.out.println("Popped elements are: ");
+       while(!s.isEmpty()){
+           System.out.println(s.pop());
+       }
+    }}
