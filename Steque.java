@@ -30,13 +30,19 @@ import java.util.NoSuchElementException;
  *
  */
 public class Steque<Item> implements Iterable<Item> {
-
+    private Item[] a;
+    private int n;
+    private int First;
+    private int Last;
+    private static int incapacity = 10;
 
     /**
      * constructs a steque object.
      */
     public Steque() {
-
+        a = (Item[]) new Object[incapacity];
+        n = 0;
+        First = 0;
     }
     
     
@@ -44,26 +50,52 @@ public class Steque<Item> implements Iterable<Item> {
      * inserts an item in the steque in queue fashion.
      * @param item Item to be inserted.
      */
+    // time complexity: O(n) space complexity: O(n)
     public void enqueue(Item item) {
-
+        if (item == null) throw new IllegalArgumentException();
+        if(n >= a.length) 
+            resize(2*a.length);
+        for(int i=a.length-1; i > 0;i--) 
+        a[i] = a[i-1];
+        a[0] = item;
+        n++;
     }
-    
-    
+
+    // time complexity: O(n) space complexity: O(n)
+    private void resize(int capacity){
+        Item temp[] = (Item[])  new Object[capacity];
+        for (int i = 0; i < a.length; i++) {
+            temp[i] = a[i];
+        }
+        a=temp;
+    }
+
     /**
      * inserts an item in the steque in stack fashion.
      * @param item Item to be inserted.
      */
+    //time complexity: O(1) space complexity: O(n)
     public void push(Item item) {
-
-    }
+        if(item==null) throw new IllegalArgumentException();
+        if(n >= a.length) resize(2*a.length);
+        a[n] = item;
+        n++;
+     }
+ 
     
     /**
      * pops a least recent item in steque.
      * @return Item object from steque.
      */
+    //time complexity: O(1), space complexity: O(1)
     public Item pop() {
-
+        if(isEmpty()) throw new NoSuchElementException();
+            Item item = a[n-1];
+            a[n-1] = null;
+            n--;
+            return item;
     }
+
     
     /**
      * checks to see if steque is empty.
